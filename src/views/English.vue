@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="https://jonatha.daguerre.com.br/custom/images/jdv.jpg" />
-    <HelloWorld language="pt"/>
+    <img alt="logo" src="../assets/logo.jpg" />
+    <HelloWorld language="en"/>
   </div>
 </template>
 
@@ -10,7 +10,7 @@
 import HelloWorld from "@/components/HelloWorld.vue";
 
 export default {
-  name: "Portuguese",
+  name: "English",
   components: {
     HelloWorld
   }
