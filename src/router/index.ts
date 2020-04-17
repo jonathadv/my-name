@@ -13,7 +13,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/english",
-    name: "english",    
+    name: "english",
     component: English
   }
 ];

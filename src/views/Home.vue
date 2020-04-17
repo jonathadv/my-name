@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="https://jonatha.daguerre.com.br/custom/images/jdv.jpg" />
-    <HelloWorld language="pt"/>
+    <img alt="Vue logo" src="../assets/logo.jpg" width="180px" />
+    <HelloWorld language="pt" />
   </div>
 </template>
 

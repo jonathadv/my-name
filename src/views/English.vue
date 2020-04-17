@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <img alt="logo" src="../assets/logo.jpg" />
-    <HelloWorld language="en"/>
+    <img alt="logo" src="../assets/logo.jpg" width="180px" />
+    <HelloWorld language="en" />
   </div>
 </template>
 

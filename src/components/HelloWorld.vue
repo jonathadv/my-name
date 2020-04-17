@@ -1,51 +1,93 @@
 <template>
   <div class="hello">
-    <h1>{{title}}</h1> 
-    <h3>{{message}}</h3>
+    <h1>{{ title }}</h1>
+    <h3>{{ message }}</h3>
+    <p>{{ joke }}</p>
     <p v-if="isRight" class="right">{{ name }}</p>
-    <p v-else class="wrong">{{ name }}</p>    
-    <input v-on:input="click($event.target.value)" placeholder="Try it now..">    
-    
+    <p v-else class="wrong">{{ name }}</p>
+    <input
+      autofocus
+      v-on:input="click($event.target.value)"
+      placeholder="Try it now.."
+    />
+    <div>
+      <p class="quote">{{ quote }}</p>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
-import { Dictionary } from 'vue-router/types/router';
+import { Dictionary } from "vue-router/types/router";
+import jokes from "./jokes";
+import i18n from "./i18n";
+import nameOptions from "./nameOptions";
+import dani from "./dani";
+import familia from "./familia";
 
 @Component
 export default class HelloWorld extends Vue {
-  @Prop({required: true}) readonly language!: string
-  
-  public name = ""
-  public isRight = false
-  public names: Array<string> = ["jonatha", "johns", "johns", "jonny"]
-  public i18n: Dictionary<Dictionary<string>> = {
-    pt: {
-      title: "Bem-vindo ao Meu Nome!",
-      message: "Esta é sua chance de provar que você sabe meu nome e apelidos corretamente! :)",
-    },
-    en: {
-      title: "Welcome to My Name!",
-      message: "This is your chance to prove you know my name and nicknames right! ;)",
+  @Prop({ required: true }) readonly language!: string;
+
+  public name = this.getDefaultName();
+  public currentJoke = "";
+  public joke = "";
+  public isRight = true;
+  public names: Array<string> = nameOptions;
+  public mensages: Dictionary<string> =
+    this.language == "pt" ? i18n.pt : i18n.en;
+  public myJokes: Dictionary<Array<string>> =
+    this.language == "pt" ? jokes.pt : jokes.en;
+
+  public click(value: string) {
+    const valueTest = value.trim();
+    this.isRight = this.names.some(n => n.includes(valueTest.toLowerCase()));
+    this.name = value;
+    if (valueTest === "") {
+      this.name = this.getDefaultName();
     }
+    this.joke = this.getJoke();
   }
 
-  public click(value: string){
-    const valueTest = value.trim()
-    this.isRight = this.names.some((n) => n.includes(valueTest.toLowerCase()))
-    this.name = value
+  get title() {
+    return this.mensages.title;
   }
 
-  get title(){
-    return this.i18n[this.language].title
+  get message() {
+    return this.mensages.message;
   }
 
-  get message(){
-    return this.i18n[this.language].message
+  get quote() {
+    const ptbr = '"Meu nome não é johnny"';
+    const enus = '"My Name Ain\'t Johnny"';
+    return this.language === "pt" ? ptbr : enus;
+  }
+
+  private getJoke() {
+    if (dani.includes(this.name.toLowerCase())) {
+      this.isRight = true;
+      return "💕 Só da Daniela Cavalheiro! 💕";
+    }
+
+    if (familia.includes(this.name.toLowerCase())) {
+      this.isRight = true;
+      return "💕 Só da minha família! 💕";
+    }
+
+    if (this.isRight) {
+      return this.getRand(this.myJokes.right);
+    }
+    return this.getRand(this.myJokes.wrong);
+  }
+
+  private getRand(arr: Array<string>) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  private getDefaultName() {
+    return "-------";
   }
 }
-  
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -73,5 +115,9 @@ a {
   font-size: 30px;
   font-weight: bold;
   color: red;
+}
+
+.quote {
+  font-style: italic;
 }
 </style>
