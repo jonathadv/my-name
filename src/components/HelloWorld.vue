@@ -4,6 +4,7 @@
     <p class="msg">{{ message }}</p>
     <p>{{ joke }}</p>
     <p v-if="isRight" class="right">{{ name }}</p>
+    <p v-else-if="isRight === null" class="joke">{{ name }}</p>
     <p v-else class="wrong">{{ name }}</p>
     <input
       autofocus
@@ -20,11 +21,10 @@
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Dictionary } from "vue-router/types/router";
-import jokes from "./jokes";
 import i18n from "./i18n";
-import nameOptions from "./nameOptions";
-import dani from "./dani";
-import familia from "./familia";
+import choices from "./choices";
+import jokes from "./jokes";
+import fixedJokes from "./fixedJokes";
 
 @Component
 export default class HelloWorld extends Vue {
@@ -33,8 +33,8 @@ export default class HelloWorld extends Vue {
   public name = this.getDefaultName();
   public currentJoke = "";
   public joke = this.getDefaultJoke();
-  public isRight = true;
-  public names: Array<string> = nameOptions;
+  public isRight: boolean | null = true;
+  public names: Array<string> = choices;
   public mensages: Dictionary<string> =
     this.language == "pt" ? i18n.pt : i18n.en;
   public myJokes: Dictionary<Array<string>> =
@@ -42,7 +42,7 @@ export default class HelloWorld extends Vue {
 
   public click(value: string) {
     const valueTest = value.trim();
-    this.isRight = this.names.some(n => n.includes(valueTest.toLowerCase()));
+    this.isRight = this.names.some(n => n.startsWith(valueTest.toLowerCase()));
     this.name = value;
     this.joke = this.getJoke();
 
@@ -67,14 +67,13 @@ export default class HelloWorld extends Vue {
   }
 
   private getJoke() {
-    if (dani.includes(this.name.toLowerCase())) {
-      this.isRight = true;
-      return "💕 Só da Daniela Cavalheiro! 💕";
-    }
-
-    if (familia.includes(this.name.toLowerCase())) {
-      this.isRight = true;
-      return "💕 Só da minha família! 💕";
+    for (let i = 0; i < fixedJokes.length; i++) {
+      if (fixedJokes[i][0] === this.name.toLowerCase()) {
+        this.isRight = null;
+        return fixedJokes[i][1]
+          ? fixedJokes[i][1]
+          : this.getRand(this.myJokes.right);
+      }
     }
 
     if (this.isRight) {
@@ -120,6 +119,12 @@ a {
   font-size: 30px;
   font-weight: bold;
   color: red;
+}
+
+.joke {
+  font-size: 30px;
+  font-weight: bold;
+  color: blue;
 }
 
 .quote {
