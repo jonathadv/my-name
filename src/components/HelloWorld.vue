@@ -2,9 +2,9 @@
   <div class="hello">
     <h2>{{ title }}</h2>
     <p class="msg">{{ message }}</p>
-    <p>{{ joke }}</p>
+    <p class="joke">{{ joke }}</p>
     <p v-if="isRight" class="right">{{ name }}</p>
-    <p v-else-if="isRight === null" class="joke">{{ name }}</p>
+    <p v-else-if="isRight === null" class="special">{{ name }}</p>
     <p v-else class="wrong">{{ name }}</p>
     <input
       autofocus
@@ -22,9 +22,9 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import { Dictionary } from "vue-router/types/router";
 import i18n from "./i18n";
-import choices from "./choices";
-import jokes from "./jokes";
-import fixedJokes from "./fixedJokes";
+import faces from "./faces";
+import answersNames from "./answersNames";
+import answers from "./answers";
 
 @Component
 export default class HelloWorld extends Vue {
@@ -34,14 +34,16 @@ export default class HelloWorld extends Vue {
   public currentJoke = "";
   public joke = this.getDefaultJoke();
   public isRight: boolean | null = true;
-  public names: Array<string> = choices;
+  public names: Array<string> = answersNames;
   public mensages: Dictionary<string> =
     this.language == "pt" ? i18n.pt : i18n.en;
-  public myJokes: Dictionary<Array<string>> =
-    this.language == "pt" ? jokes.pt : jokes.en;
+  public myfaces: Dictionary<Array<string>> = faces;
 
   public click(value: string) {
     const valueTest = value.trim();
+    if (valueTest === " ") {
+      return;
+    }
     this.isRight = this.names.some(n => n.startsWith(valueTest.toLowerCase()));
     this.name = value;
     this.joke = this.getJoke();
@@ -67,19 +69,17 @@ export default class HelloWorld extends Vue {
   }
 
   private getJoke() {
-    for (let i = 0; i < fixedJokes.length; i++) {
-      if (fixedJokes[i][0] === this.name.toLowerCase()) {
+    for (let i = 0; i < answers.length; i++) {
+      if (answers[i][0] === this.name.toLowerCase()) {
         this.isRight = null;
-        return fixedJokes[i][1]
-          ? fixedJokes[i][1]
-          : this.getRand(this.myJokes.right);
+        return answers[i][1] ? answers[i][1] : this.getRand(this.myfaces.right);
       }
     }
 
     if (this.isRight) {
-      return this.getRand(this.myJokes.right);
+      return this.getRand(this.myfaces.right);
     }
-    return this.getRand(this.myJokes.wrong);
+    return this.getRand(this.myfaces.wrong);
   }
 
   private getRand(arr: Array<string>) {
@@ -121,10 +121,14 @@ a {
   color: red;
 }
 
-.joke {
+.special {
   font-size: 30px;
   font-weight: bold;
   color: blue;
+}
+
+.joke {
+  font-size: 40px;
 }
 
 .quote {

@@ -22,9 +22,16 @@ const familia = [
 ];
 
 const outros = [
-  ["your name", "Isso é um filme!"],
-  ["jonatha daguerre vasconcelos", "🥳 Parabéeeeens 🥳"],
-  ["daguerre", "😎 Bonito Nome... 😎"]
+  ["your name", "Isso é um filme! 🤣"],
+  ["john", "👏🏻 Parabéns! 👏🏻"],
+  ["johns", "👏🏻 Parabéns! 👏🏻"],
+  ["jonny", "👏🏻 Parabéns! 👏🏻"],
+  ["jonatha", "👏🏻 Parabéns! 👏🏻"],
+  ["jonatha daguerre", "👏🏻👏🏻 Parabéeens! 👏🏻👏🏻"],
+  ["jonatha vasconcelos", "parabéns! 👏🏻 (pode melhorar)"],
+  ["jonatha daguerre vasconcelos", "👏🏻👏🏻 Parabéeeeens 👏🏻👏🏻"],
+  ["daguerre", "😎 Bonito Nome... 😎"],
+  ["vasconcelos, jonatha", "feel like a sir 🧐"]
 ];
 
 export default [...dani, ...familia, ...outros];
