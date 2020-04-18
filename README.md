@@ -1,29 +1,6 @@
-# my-name
+# Welcome to My Name!
 
-## Project setup
-```
-npm install
-```
+This is your chance to prove you know my name and nicknames right! ;)
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+Usually people spell my name wrong... This is their chance to learn how to spell it right.
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
