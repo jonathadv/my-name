@@ -103,7 +103,7 @@ h2 {
   margin: 10px 0 0;
 }
 p {
-  margin: 4px;
+  margin: 10px;
 }
 a {
   color: #42b983;
