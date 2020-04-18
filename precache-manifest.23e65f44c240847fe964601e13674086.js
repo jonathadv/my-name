@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/my-name/img/logo.c8cf8bd8.jpg"
   },
   {
-    "revision": "d69b45d193edf1d269895c3d76b167f0",
+    "revision": "bbb19c4e3fc6616dcd5d55bf37c8dc99",
     "url": "/my-name/index.html"
   },
   {
