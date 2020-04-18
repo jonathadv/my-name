@@ -11,7 +11,6 @@ const jokes: Dictionary<Array<string>> = {
     "🙃",
     "😉",
     "😊",
-    "🥰",
     "😍",
     "🤩",
     "😘",
