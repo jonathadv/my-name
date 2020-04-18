@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="logo" src="../assets/logo.jpg" width="180px" />
+    <img alt="logo" src="../assets/logo.jpg" width="160px" />
     <HelloWorld language="en" />
   </div>
 </template>

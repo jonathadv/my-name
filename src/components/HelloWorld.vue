@@ -1,12 +1,13 @@
 <template>
   <div class="hello">
-    <h1>{{ title }}</h1>
-    <h3>{{ message }}</h3>
+    <h2>{{ title }}</h2>
+    <p class="msg">{{ message }}</p>
     <p>{{ joke }}</p>
     <p v-if="isRight" class="right">{{ name }}</p>
     <p v-else class="wrong">{{ name }}</p>
     <input
       autofocus
+      class="button"
       v-on:input="click($event.target.value)"
       placeholder="Try it now.."
     />
@@ -31,7 +32,7 @@ export default class HelloWorld extends Vue {
 
   public name = this.getDefaultName();
   public currentJoke = "";
-  public joke = "";
+  public joke = this.getDefaultJoke();
   public isRight = true;
   public names: Array<string> = nameOptions;
   public mensages: Dictionary<string> =
@@ -43,10 +44,12 @@ export default class HelloWorld extends Vue {
     const valueTest = value.trim();
     this.isRight = this.names.some(n => n.includes(valueTest.toLowerCase()));
     this.name = value;
+    this.joke = this.getJoke();
+
     if (valueTest === "") {
       this.name = this.getDefaultName();
+      this.joke = this.getDefaultJoke();
     }
-    this.joke = this.getJoke();
   }
 
   get title() {
@@ -87,24 +90,26 @@ export default class HelloWorld extends Vue {
   private getDefaultName() {
     return "-------";
   }
+
+  private getDefaultJoke() {
+    return "...";
+  }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
+h2 {
+  margin: 10px 0 0;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
+p {
+  margin: 2px;
 }
 a {
   color: #42b983;
+}
+.msg {
+  font-weight: bold;
 }
 .right {
   font-size: 30px;
@@ -119,5 +124,34 @@ a {
 
 .quote {
   font-style: italic;
+}
+
+.button {
+  box-sizing: border-box;
+  color: rgb(73, 80, 87);
+  flex-basis: auto;
+  flex-grow: 1;
+  flex-shrink: 1;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  overflow: visible;
+  overflow-x: visible;
+  overflow-y: visible;
+  padding-bottom: 6px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 6px;
+  position: relative;
+  text-align: center;
+  transition-delay: 0s, 0s;
+  transition-duration: 0.15s, 0.15s;
+  transition-property: border-color, box-shadow;
+  transition-timing-function: ease-in-out, ease-in-out;
 }
 </style>

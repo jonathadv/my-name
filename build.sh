@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -exu
 
 npm run build
 mv "dist/" "${HOME}/" 
@@ -9,3 +9,5 @@ if [[ -d node_modules && -d .git ]]; then
   mv ${HOME}/dist/* . 
   git add -A && git commit -m "New version" && git push -f
 fi
+
+git checkout develop
